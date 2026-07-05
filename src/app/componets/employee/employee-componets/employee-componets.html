@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>Employee Details</h2>
+
+<form [formGroup]="employeeForm" (ngSubmit)="onSaveClick()">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Id</mat-label>
+            <input [disabled]="true" matInput formControlName="id" id="id">
+        </mat-form-field>
+
+        <mat-form-field class="mt-2">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" id="name">
+            @if (f.name.hasError('required')) {
+                <mat-error>Name is required</mat-error>
+            }
+            @if (f.name.hasError('minlength')) {
+                <mat-error>Name must be at least 3 characters long</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field class="mt-2">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" id="email">
+            @if (f.email.hasError('required')) {
+                <mat-error>Email is required</mat-error>
+            }
+            @if (f.email.hasError('email')) {
+                <mat-error>Invalid email address</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field class="mt-2">
+            <mat-label>Mobile</mat-label>
+            <input matInput formControlName="mobile" id="mobile">
+            @if (f.mobile.hasError('required')) {
+                <mat-error>Mobile is required</mat-error>
+            }
+            @if (f.mobile.hasError('pattern')) {
+                <mat-error>Invalid mobile number</mat-error>
+            }
+        </mat-form-field>
+
+         <mat-form-field class="mt-2">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price" id="price">
+            @if (f.price.hasError('required')) {
+                <mat-error>Price is required</mat-error>
+            }
+            @if (f.price.hasError('min')) {
+                <mat-error>Price must be a positive number</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="gender" id="gender">
+                <mat-option value="M">Male</mat-option>
+                <mat-option value="F">Female</mat-option>
+            </mat-select>
+            @if (f.gender.hasError('required')) {
+                <mat-error>Gender is required</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <!-- formControlName input par lagana chahiye -->
+            <input matInput [matDatepicker]="picker" formControlName="createdDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if(f.createdDate.hasError('required')) {
+                <mat-error>Created Date is required</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Slide toggle par formControlName -->
+        <mat-slide-toggle formControlName="isActive" id="isActive">Is Active</mat-slide-toggle>
+
+    </mat-dialog-content>
+    
+    <mat-dialog-actions>
+        <button matButton type="button" (click)="onNoClick()">No Thanks</button>
+        <button matButton type="submit" color="primary" cdkFocusInitial>Save</button>
+    </mat-dialog-actions>
+</form>
